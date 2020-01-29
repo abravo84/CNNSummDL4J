@@ -143,10 +143,11 @@ public class CnnSentencePredictionFinal {
         
         //String trainingDataPath = "/home/upf/corpora/SciSUM-2017-arffs-and-models/training_sets_ab/ALL-DOCS-2016-TRAIN-27-FILES/token_acl_vec_human.txt";
         
+        String modelPath = "/homedtic/aburaed/model_";
         
         if (trainMode && testMode) {
         	ComputationGraph model = doExperimentTesting(trainingDataPath, featuresAddPath, citationsPath,labelsPath);
-	    	File locationToSave = new File("/homedtic/abravo/model_"+expe+".zip");
+	    	File locationToSave = new File(modelPath+expe+".zip");
 	        ModelSerializer.writeModel(model, locationToSave, false); 
 	        predictionCG(model, testDataPath, vecPrefix, featPrefix, citationPrefix, resultPath, experimentNumber);
 	        System.exit(0);
@@ -154,7 +155,7 @@ public class CnnSentencePredictionFinal {
         
         if (trainMode) {        	
         	ComputationGraph model = doExperimentTesting(trainingDataPath, featuresAddPath, citationsPath,labelsPath);
-	    	File locationToSave = new File("/homedtic/abravo/model_"+expe+".zip");
+	    	File locationToSave = new File(modelPath+expe+".zip");
 	        ModelSerializer.writeModel(model, locationToSave, false);        	
         }
         
@@ -162,7 +163,7 @@ public class CnnSentencePredictionFinal {
         	if (!trainMode) {
         		ComputationGraph model2 = doExperimentTesting(trainingDataPath, featuresAddPath, citationsPath,labelsPath);
         	}
-        	ComputationGraph model = ModelSerializer.restoreComputationGraph("/homedtic/abravo/model_"+expe+".zip", false);
+        	ComputationGraph model = ModelSerializer.restoreComputationGraph(modelPath+expe+".zip", false);
         	predictionCG(model, testDataPath, vecPrefix, featPrefix, citationPrefix, resultPath, experimentNumber);        	
         }
         
@@ -170,7 +171,7 @@ public class CnnSentencePredictionFinal {
         
         if (testMode){
         	ComputationGraph model = doExperimentTesting(trainingDataPath, featuresAddPath, citationsPath,labelsPath);
-        	File locationToSave = new File("/homedtic/abravo/model_"+expe+".zip");
+        	File locationToSave = new File(modelPath+expe+".zip");
             ModelSerializer.writeModel(model, locationToSave, false);
             //System.exit(0);
             
